@@ -1,0 +1,122 @@
+
+<app-header></app-header>
+<table>
+    <thead>
+      <th> Track </th>
+      <th> Delivery Lead </th>
+      <th> # of Apps / Systems / landscapes </th>
+      <th> Documentation health: <br> AID / SOP coverage % <br> # </th>
+      <th colspan="7"> System outage hours <br> ###	</th>
+      <th colspan="8"> Ticket Volume </th>
+      <th colspan="7"> Tier 3 / Client contact % <br> ####	</th>
+      <th colspan="6"> RCA % <br> ##### </th>
+      <th colspan="6"> Left Shift %  </th>
+      <th colspan="6"> MTTR (hr) <br> ####### </th>
+      <th colspan="6"> Hop % <br>######## </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of data; let i = index; let f = first; let l = last;">
+        <ng-template *ngIf="!l; then notLast else lastRow"></ng-template>
+        <ng-template #notLast>
+          <td *ngIf="f; else h1"> </td>
+          <ng-template #h1>
+            <td> {{ d.track }} </td>
+          </ng-template>
+
+          <td *ngIf="f; else h2"> </td>
+          <ng-template #h2>
+            <td> {{ d.delivery_lead }} </td>
+          </ng-template>
+
+          <td *ngIf="f; else h3"> </td>
+          <ng-template #h3>
+            <td *ngIf="i == 4; else other" rowspan = "2"> {{ d.apps_systems_lansacpes_count  }} </td>
+          </ng-template>
+          <ng-template #other>
+            <td *ngIf="i == 7; else other1" rowspan = "4"> {{ d.apps_systems_lansacpes_count }} </td>
+          </ng-template>
+          <ng-template #other1>
+            <td *ngIf="i != 5 && i != 8 && i != 9 && i != 10"> {{ d.apps_systems_lansacpes_count }} </td>
+          </ng-template>
+
+          <td> {{ d.doc_health }} </td>
+          <!--<td> <input type="text" [value]="d.soh_1 ? d.soh_1 : ''"> </td>-->
+          <td> {{ d.soh_1 }} </td>
+          <td> {{ d.soh_2 }} </td>
+          <td> {{ d.soh_3 }} </td>
+          <td> {{ d.soh_4 }} </td>
+          <td> {{ d.soh_5 }} </td>
+          <td> {{ d.soh_6 }} </td>
+          <td> {{ d.soh_t }} </td>
+          <td> {{ d.tv_1 }} </td>
+          <td> {{ d.tv_2 }} </td>
+          <td> {{ d.tv_3 }} </td>
+          <td> {{ d.tv_4 }} </td>
+          <td> {{ d.tv_5 }} </td>
+          <td> {{ d.tv_6 }} </td>
+          <td> {{ d.tv_cv }} </td>
+          <td> {{ d.tv_av }} </td>
+          <td> {{ d.t3_1 }} </td>
+          <td> {{ d.t3_2 }} </td>
+          <td> {{ d.t3_3 }} </td>
+          <td> {{ d.t3_4 }} </td>
+          <td> {{ d.t3_5 }} </td>
+          <td> {{ d.t3_6 }} </td>
+          <td> {{ d.t3_t }} </td>
+          <td> {{ d.rca_1 }} </td>
+          <td> {{ d.rca_2 }} </td>
+          <td> {{ d.rca_3 }} </td>
+          <td> {{ d.rca_4 }} </td>
+          <td> {{ d.rca_5 }} </td>
+          <td> {{ d.rca_6 }} </td>
+          <td> {{ d.ls_1 }} </td>
+          <td> {{ d.ls_2 }} </td>
+          <td> {{ d.ls_3 }} </td>
+          <td> {{ d.ls_4 }} </td>
+          <td> {{ d.ls_5 }} </td>
+          <td> {{ d.ls_6 }} </td>
+          <td> {{ d.mttr_1 }} </td>
+          <td> {{ d.mttr_2 }} </td>
+          <td> {{ d.mttr_3 }} </td>
+          <td> {{ d.mttr_4 }} </td>
+          <td> {{ d.mttr_5 }} </td>
+          <td> {{ d.mttr_6 }} </td>
+          <td> {{ d.hop_1 }} </td>
+          <td> {{ d.hop_2 }} </td>
+          <td> {{ d.hop_3 }} </td>
+          <td> {{ d.hop_4 }} </td>
+          <td> {{ d.hop_5 }} </td>
+          <td> {{ d.hop_6 }} </td>
+        </ng-template>
+        <ng-template #lastRow>
+          <td colspan="3"> {{ d.track }}</td>
+          <td> {{ d.doc_health }} </td>
+          <td> {{ d.soh_1 }} </td>
+          <td> {{ d.soh_2 }} </td>
+          <td> {{ d.soh_3 }} </td>
+          <td> {{ d.soh_4 }} </td>
+          <td> {{ d.soh_5 }} </td>
+          <td> {{ d.soh_6 }} </td>
+          <td> {{ d.soh_t }} </td>
+          <td> {{ d.tv_1 }} </td>
+          <td> {{ d.tv_2 }} </td>
+          <td> {{ d.tv_3 }} </td>
+          <td> {{ d.tv_4 }} </td>
+          <td> {{ d.tv_5 }} </td>
+          <td> {{ d.tv_6 }} </td>
+          <td> {{ d.tv_cv }} </td>
+          <td> {{ d.tv_av }} </td>
+          <td colspan="21"> </td>
+        </ng-template>
+      </tr>
+    </tbody>
+</table>
+    <div id="info">
+      #	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for instance, if there are 80 apps, and you have 72 AID's, the coverage is 90%, or if you have 27 processes, and SOP is available for 18, then this metric is 67% (18/27) <br>												
+###	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cumulative of all landscapes, and irrespective of the cause<br>
+####&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for instance, in a quarter, we received 3000 tix, of which we took assistance from any client staff on 100 tix, then this metric is 100/ 3000 = 3.33%<br>											
+#####	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g., the P1 tix influx in a quarter is 200, and if we did a formal RCA on 100, then this metric is 50%<br>												
+#######	&nbsp;&nbsp;&nbsp;&nbsp;Include all hops / stoppage times<br>												
+########&nbsp;	% of tix that hopped to a different queue, and were closed there, instead of the queue of origin (exclude SD here)<br> 												
+
+    </div>
